@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import List
+from typing import List, Tuple
 
 
 @dataclass
@@ -11,7 +11,7 @@ class Task:
 
     def mark_complete(self):
         """Mark this task as completed."""
-        pass
+        self.completed = True
 
 
 @dataclass
@@ -23,11 +23,11 @@ class Pet:
 
     def add_task(self, task: Task):
         """Add a task to this pet."""
-        pass
+        self.tasks.append(task)
 
     def get_tasks(self):
         """Return this pet's tasks."""
-        pass
+        return self.tasks
 
 
 @dataclass
@@ -37,11 +37,17 @@ class Owner:
 
     def add_pet(self, pet: Pet):
         """Add a pet to this owner."""
-        pass
+        self.pets.append(pet)
 
-    def get_all_tasks(self):
+    def get_all_tasks(self) -> List[Tuple[Pet, Task]]:
         """Return all tasks for all pets."""
-        pass
+        all_tasks = []
+
+        for pet in self.pets:
+            for task in pet.get_tasks():
+                all_tasks.append((pet, task))
+
+        return all_tasks
 
 
 class Scheduler:
@@ -50,16 +56,29 @@ class Scheduler:
 
     def get_today_schedule(self):
         """Return today's tasks."""
-        pass
+        return self.owner.get_all_tasks()
 
     def sort_by_time(self, tasks):
         """Sort tasks by time."""
-        pass
+        return sorted(tasks, key=lambda item: item[1].time)
 
     def filter_by_pet(self, pet_name):
         """Filter tasks by pet name."""
-        pass
+        return [
+            (pet, task)
+            for pet, task in self.owner.get_all_tasks()
+            if pet.name.lower() == pet_name.lower()
+        ]
 
     def detect_conflicts(self):
         """Detect tasks scheduled at the same time."""
-        pass
+        conflicts = []
+        seen_times = {}
+
+        for pet, task in self.owner.get_all_tasks():
+            if task.time in seen_times:
+                conflicts.append((seen_times[task.time], (pet, task)))
+            else:
+                seen_times[task.time] = (pet, task)
+
+        return conflicts

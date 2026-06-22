@@ -92,3 +92,13 @@ Describe your app in numbered steps so a reader can follow along without watchin
 5. <!-- Add more steps as needed -->
 
 **Screenshot or video** *(optional)*: <!-- Insert a screenshot or link to a demo video here -->
+
+## Sample Output
+
+```text
+Today's Schedule
+----------------
+07:30 | Luna | Feed wet food | daily | Pending
+08:00 | Max | Morning walk | daily | Pending
+14:30 | Max | Vet appointment | once | Pending
+
