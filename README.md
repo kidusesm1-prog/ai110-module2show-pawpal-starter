@@ -102,3 +102,17 @@ Today's Schedule
 08:00 | Max | Morning walk | daily | Pending
 14:30 | Max | Vet appointment | once | Pending
 
+
+## Smarter Scheduling
+
+PawPal+ now includes basic scheduling algorithms:
+
+- `Scheduler.sort_by_time()` sorts all tasks in chronological order using the task time.
+- `Scheduler.filter_by_pet()` filters tasks for one specific pet.
+- `Scheduler.filter_by_status()` filters tasks based on whether they are complete or pending.
+- `Scheduler.detect_conflicts()` checks if multiple tasks are scheduled at the same time and returns a warning.
+- `Scheduler.mark_task_complete()` marks a task complete and creates the next task automatically for daily or weekly recurring tasks.
+
+These features were tested in `main.py` using out-of-order tasks, duplicate task times, and a recurring daily task.
+
+
